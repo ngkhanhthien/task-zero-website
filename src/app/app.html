@@ -3,15 +3,49 @@
     <h1 class="text-2xl font-bold pt-4 pb-2 text-center text-gray-800 border-b">
       Task Manager
     </h1>
-    
+
     <!-- Add Task Component -->
     <div class="px-4 pt-4">
       <app-add-task (add)="onAddTask($event)"></app-add-task>
     </div>
 
-    <!-- Task List Component -->
+    <!-- Tab Buttons -->
+    <div class="flex border-b px-4">
+      <button 
+        id="tab-today"
+        class="flex-1 py-2 text-sm font-semibold transition-colors"
+        [class.text-gray-900]="currentTab() === 'today'"
+        [class.border-b-2]="currentTab() === 'today'"
+        [class.border-gray-800]="currentTab() === 'today'"
+        [class.text-gray-400]="currentTab() !== 'today'"
+        (click)="setTab('today')">
+        Today
+      </button>
+      <button 
+        id="tab-scheduled"
+        class="flex-1 py-2 text-sm font-semibold transition-colors"
+        [class.text-gray-900]="currentTab() === 'scheduled'"
+        [class.border-b-2]="currentTab() === 'scheduled'"
+        [class.border-gray-800]="currentTab() === 'scheduled'"
+        [class.text-gray-400]="currentTab() !== 'scheduled'"
+        (click)="setTab('scheduled')">
+        Scheduled
+      </button>
+      <button 
+        id="tab-done"
+        class="flex-1 py-2 text-sm font-semibold transition-colors"
+        [class.text-gray-900]="currentTab() === 'done'"
+        [class.border-b-2]="currentTab() === 'done'"
+        [class.border-gray-800]="currentTab() === 'done'"
+        [class.text-gray-400]="currentTab() !== 'done'"
+        (click)="setTab('done')">
+        Done
+      </button>
+    </div>
+
+    <!-- Task List Component — shows filteredTasks based on active tab -->
     <div class="px-4 pb-6 flex-1">
-      <app-task-list [tasks]="tasks()"></app-task-list>
+      <app-task-list [tasks]="filteredTasks()"></app-task-list>
     </div>
   </div>
 </main>
