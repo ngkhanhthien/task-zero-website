@@ -3,7 +3,13 @@
     <li 
       class="p-4 bg-gray-50 border border-gray-100 rounded-xl hover:bg-gray-100 transition-colors flex items-center shadow-sm cursor-pointer select-none"
       (click)="onToggle(task.id)">
-      <span class="text-gray-800 font-medium">{{ task.title }}</span>
+      <span 
+        class="font-medium transition-all"
+        [class.line-through]="task.status === 'done'"
+        [class.text-gray-400]="task.status === 'done'"
+        [class.text-gray-800]="task.status !== 'done'">
+        {{ task.title }}
+      </span>
     </li>
   } @empty {
     <li class="text-center text-gray-400 py-8 text-sm">
