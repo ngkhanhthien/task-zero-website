@@ -4,10 +4,9 @@
       Task Manager
     </h1>
     
-    <!-- Code tạm hiển thị Data -->
-    <div class="p-4 bg-gray-50 h-full">
-      <p class="text-xs text-gray-400 mb-2">Debug Data (tasks$):</p>
-      <pre class="text-sm text-gray-700">{{ tasks$ | async | json }}</pre>
+    <!-- Component Danh sách Task -->
+    <div class="px-2 pb-6">
+      <app-task-list [tasks]="tasks$ | async"></app-task-list>
     </div>
   </div>
 </main>

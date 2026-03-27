@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { TaskService } from './core/task.service';
+import { TaskListComponent } from './components/task-list/task-list.component';
 
 @Component({
   selector: 'app-root',
-  imports: [AsyncPipe, JsonPipe],
+  imports: [AsyncPipe, JsonPipe, TaskListComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
