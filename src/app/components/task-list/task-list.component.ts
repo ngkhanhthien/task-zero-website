@@ -1,14 +1,19 @@
-import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, output } from '@angular/core';
 import { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './task-list.component.html'
 })
 export class TaskListComponent {
-  // Thay @Input() bằng signal input() bắt buộc
+  // Signal Input (Angular 21)
   tasks = input.required<Task[]>();
+
+  // Signal Output — emits the task ID to toggle
+  toggle = output<string>();
+
+  onToggle(id: string): void {
+    this.toggle.emit(id);
+  }
 }
