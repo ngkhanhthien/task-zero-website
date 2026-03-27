@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, output } from '@angular/core';
 
 @Component({
   selector: 'app-add-task',
@@ -6,12 +6,13 @@ import { Component, Output, EventEmitter } from '@angular/core';
   templateUrl: './add-task.component.html'
 })
 export class AddTaskComponent {
-  @Output() add = new EventEmitter<string>();
+  // Thay thế EventEmitter bằng output() của Angular 21
+  add = output<string>();
 
   onAdd(title: string, inputElement: HTMLInputElement): void {
     if (title.trim()) {
       this.add.emit(title.trim());
-      inputElement.value = ''; // Reset input field after emitting
+      inputElement.value = ''; // Reset
     }
   }
 }

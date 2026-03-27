@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../models/task.model';
 
@@ -9,5 +9,6 @@ import { Task } from '../../models/task.model';
   templateUrl: './task-list.component.html'
 })
 export class TaskListComponent {
-  @Input() tasks: Task[] | null = [];
+  // Thay @Input() bằng signal input() bắt buộc
+  tasks = input.required<Task[]>();
 }

@@ -1,20 +1,20 @@
 import { Component, inject } from '@angular/core';
-import { AsyncPipe, JsonPipe } from '@angular/common';
 import { TaskService } from './core/task.service';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { AddTaskComponent } from './components/add-task/add-task.component';
 
 @Component({
   selector: 'app-root',
-  imports: [AsyncPipe, TaskListComponent, AddTaskComponent],
+  imports: [TaskListComponent, AddTaskComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   private taskService = inject(TaskService);
   
-  // Expose tasks stream
-  tasks$ = this.taskService.getTasks();
+  // Trỏ thẳng tới properties Signal của service,
+  // Không cần async pipe nữa!
+  tasks = this.taskService.tasks;
 
   onAddTask(title: string): void {
     this.taskService.addTask(title);

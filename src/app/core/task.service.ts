@@ -1,18 +1,14 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 import { Task } from '../models/task.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  private tasksSubject = new BehaviorSubject<Task[]>([]);
+  // Thay BehaviorSubject bằng signal
+  tasks = signal<Task[]>([]);
 
   constructor() {}
-
-  getTasks(): Observable<Task[]> {
-    return this.tasksSubject.asObservable();
-  }
 
   addTask(title: string): void {
     const newTask: Task = {
@@ -21,34 +17,27 @@ export class TaskService {
       status: 'today',
       createdAt: new Date().toISOString()
     };
-    const currentTasks = this.tasksSubject.value;
-    this.tasksSubject.next([...currentTasks, newTask]);
+    this.tasks.update(tasks => [...tasks, newTask]);
     
     // TODO: Replace bằng HttpClient + environment.apiUrl
   }
 
   updateTaskStatus(id: string, status: 'today' | 'scheduled' | 'done'): void {
-    const currentTasks = this.tasksSubject.value;
-    const updatedTasks = currentTasks.map(task => 
+    this.tasks.update(tasks => tasks.map(task => 
       task.id === id ? { ...task, status } : task
-    );
-    this.tasksSubject.next(updatedTasks);
+    ));
     
     // TODO: Replace bằng HttpClient + environment.apiUrl
   }
 
   deleteTask(id: string): void {
-    const currentTasks = this.tasksSubject.value;
-    const filteredTasks = currentTasks.filter(task => task.id !== id);
-    this.tasksSubject.next(filteredTasks);
+    this.tasks.update(tasks => tasks.filter(task => task.id !== id));
     
     // TODO: Replace bằng HttpClient + environment.apiUrl
   }
 
   clearDoneTasks(): void {
-    const currentTasks = this.tasksSubject.value;
-    const filteredTasks = currentTasks.filter(task => task.status !== 'done');
-    this.tasksSubject.next(filteredTasks);
+    this.tasks.update(tasks => tasks.filter(task => task.status !== 'done'));
     
     // TODO: Replace bằng HttpClient + environment.apiUrl
   }

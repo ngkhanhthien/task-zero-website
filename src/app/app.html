@@ -1,7 +1,7 @@
 <main class="layout-container">
-  <div class="core-card">
+  <div class="core-card flex flex-col">
     <h1 class="text-2xl font-bold pt-4 pb-2 text-center text-gray-800 border-b">
-      Task Manager
+      Task Manager (Signals)
     </h1>
     
     <!-- Component Add Task -->
@@ -10,8 +10,8 @@
     </div>
 
     <!-- Component Danh sách Task -->
-    <div class="px-4 pb-6">
-      <app-task-list [tasks]="tasks$ | async"></app-task-list>
+    <div class="px-4 pb-6 flex-1">
+      <app-task-list [tasks]="tasks()"></app-task-list>
     </div>
   </div>
 </main>
