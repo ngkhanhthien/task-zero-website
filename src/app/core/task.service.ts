@@ -1,5 +1,7 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, effect } from '@angular/core';
 import { Task } from '../models/task.model';
+
+const STORAGE_KEY = 'tasks';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +9,23 @@ import { Task } from '../models/task.model';
 export class TaskService {
   // Local signal store — mirrors what a REST API response would look like.
   // TODO: Replace with HttpClient calls to environment.apiUrl
-  tasks = signal<Task[]>([]);
+  tasks = signal<Task[]>(this.loadFromStorage());
 
-  constructor() {}
+  constructor() {
+    // effect() auto-saves to localStorage whenever tasks signal changes
+    effect(() => {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.tasks()));
+    });
+  }
+
+  private loadFromStorage(): Task[] {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? (JSON.parse(raw) as Task[]) : [];
+    } catch {
+      return [];
+    }
+  }
 
   // GET /tasks
   getAll(): void {
