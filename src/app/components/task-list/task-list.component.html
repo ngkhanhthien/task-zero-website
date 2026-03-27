@@ -1,0 +1,12 @@
+<ul class="space-y-3 mt-4">
+  @for (task of tasks; track task.id) {
+    <!-- Chỉ show title theo yêu cầu -->
+    <li class="p-4 bg-gray-50 border border-gray-100 rounded-xl hover:bg-gray-100 transition-colors flex items-center">
+      <span class="text-gray-800 font-medium">{{ task.title }}</span>
+    </li>
+  } @empty {
+    <li class="text-center text-gray-400 py-8 text-sm">
+      Không có task nào.
+    </li>
+  }
+</ul>
