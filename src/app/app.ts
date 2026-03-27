@@ -1,12 +1,16 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { AsyncPipe, JsonPipe } from '@angular/common';
+import { TaskService } from './core/task.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [AsyncPipe, JsonPipe],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('task-zero-website');
+  private taskService = inject(TaskService);
+  
+  // Expose tasks stream
+  tasks$ = this.taskService.getTasks();
 }

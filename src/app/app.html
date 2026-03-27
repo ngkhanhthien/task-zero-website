@@ -1,1 +1,8 @@
-<p>helloworld</p>
+<main class="p-8 max-w-2xl mx-auto">
+  <h1 class="text-2xl font-bold mb-4">Task Manager - Phase 1 Foundation</h1>
+  
+  <p class="mb-4 text-gray-600">This is just a debug view of the data. Beautiful UI comes in Phase 2 & 3!</p>
+  
+  <h2 class="font-semibold text-lg text-gray-700">Current State (tasks$ via JSON pipe):</h2>
+  <pre class="bg-white p-4 rounded-xl shadow mt-2 text-sm overflow-auto">{{ tasks$ | async | json }}</pre>
+</main>
