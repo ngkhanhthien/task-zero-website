@@ -45,4 +45,12 @@ export class App {
   onAddTask(title: string): void {
     this.taskService.addTask(title);
   }
+
+  onToggleTask(id: string): void {
+    const task = this.tasks().find(t => t.id === id);
+    if (!task) return;
+    // Toggle between today and done
+    const nextStatus = task.status === 'done' ? 'today' : 'done';
+    this.taskService.updateTaskStatus(id, nextStatus);
+  }
 }
