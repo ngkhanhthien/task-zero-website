@@ -5,8 +5,7 @@
 
 .core-card {
   background-color: #ffffff;
-  /* Card trắng ở giữa */
-  border-radius: 8px; /* Bo góc tạm trước khi Phase 6 làm đẹp */
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
   overflow: hidden;
 }
