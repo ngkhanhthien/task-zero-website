@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { TaskService } from './core/task.service';
 import { TaskListComponent } from './components/task-list/task-list.component';
+import { AddTaskComponent } from './components/add-task/add-task.component';
 
 @Component({
   selector: 'app-root',
-  imports: [AsyncPipe, JsonPipe, TaskListComponent],
+  imports: [AsyncPipe, TaskListComponent, AddTaskComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -14,4 +15,8 @@ export class App {
   
   // Expose tasks stream
   tasks$ = this.taskService.getTasks();
+
+  onAddTask(title: string): void {
+    this.taskService.addTask(title);
+  }
 }

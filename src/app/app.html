@@ -4,8 +4,13 @@
       Task Manager
     </h1>
     
+    <!-- Component Add Task -->
+    <div class="px-4 pt-4">
+      <app-add-task (add)="onAddTask($event)"></app-add-task>
+    </div>
+
     <!-- Component Danh sách Task -->
-    <div class="px-2 pb-6">
+    <div class="px-4 pb-6">
       <app-task-list [tasks]="tasks$ | async"></app-task-list>
     </div>
   </div>
