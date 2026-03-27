@@ -53,4 +53,8 @@ export class App {
     const nextStatus = task.status === 'done' ? 'today' : 'done';
     this.taskService.updateTaskStatus(id, nextStatus);
   }
+
+  onDeleteTask(id: string): void {
+    this.taskService.deleteTask(id);
+  }
 }

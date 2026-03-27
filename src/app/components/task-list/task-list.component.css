@@ -1,0 +1,8 @@
+.task-row {
+  position: relative;
+}
+
+.task-row:hover {
+  background-color: #f0f0f5;
+  border-color: #e0e0e9;
+}

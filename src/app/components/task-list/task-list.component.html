@@ -1,8 +1,10 @@
-<ul class="space-y-3 mt-4">
+<ul class="space-y-2 mt-4">
   @for (task of tasks(); track task.id) {
     <li 
-      class="p-4 bg-gray-50 border border-gray-100 rounded-xl hover:bg-gray-100 transition-colors flex items-center shadow-sm cursor-pointer select-none"
+      class="task-row group p-4 bg-gray-50 border border-gray-100 rounded-xl transition-all flex items-center justify-between shadow-sm cursor-pointer select-none"
       (click)="onToggle(task.id)">
+
+      <!-- Task title -->
       <span 
         class="font-medium transition-all"
         [class.line-through]="task.status === 'done'"
@@ -10,6 +12,23 @@
         [class.text-gray-800]="task.status !== 'done'">
         {{ task.title }}
       </span>
+
+      <!-- Hover action buttons — visible only on hover -->
+      <div class="action-buttons flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        <button
+          id="btn-done-{{ task.id }}"
+          class="px-3 py-1 text-xs font-semibold rounded-lg bg-green-100 text-green-700 hover:bg-green-200 transition-colors"
+          (click)="onToggle(task.id); $event.stopPropagation()">
+          ✓ Done
+        </button>
+        <button
+          id="btn-delete-{{ task.id }}"
+          class="px-3 py-1 text-xs font-semibold rounded-lg bg-red-100 text-red-500 hover:bg-red-200 transition-colors"
+          (click)="onDelete(task.id, $event)">
+          🗑 Delete
+        </button>
+      </div>
+
     </li>
   } @empty {
     <li class="text-center text-gray-400 py-8 text-sm">
