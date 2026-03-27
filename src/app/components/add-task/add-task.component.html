@@ -1,0 +1,9 @@
+<div class="mb-4">
+  <input 
+    #taskInput
+    type="text" 
+    placeholder="Thêm task mới... (nhấn Enter để lưu)" 
+    class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-300 transition-all text-gray-800 placeholder-gray-400"
+    (keyup.enter)="onAdd(taskInput.value, taskInput)"
+  />
+</div>
