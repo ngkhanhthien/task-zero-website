@@ -12,8 +12,7 @@ import { AddTaskComponent } from './components/add-task/add-task.component';
 export class App {
   private taskService = inject(TaskService);
   
-  // Trỏ thẳng tới properties Signal của service,
-  // Không cần async pipe nữa!
+  // Directly reference the service Signal — no async pipe needed!
   tasks = this.taskService.tasks;
 
   onAddTask(title: string): void {

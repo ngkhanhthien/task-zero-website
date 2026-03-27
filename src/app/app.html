@@ -1,15 +1,15 @@
 <main class="layout-container">
   <div class="core-card flex flex-col">
     <h1 class="text-2xl font-bold pt-4 pb-2 text-center text-gray-800 border-b">
-      Task Manager (Signals)
+      Task Manager
     </h1>
     
-    <!-- Component Add Task -->
+    <!-- Add Task Component -->
     <div class="px-4 pt-4">
       <app-add-task (add)="onAddTask($event)"></app-add-task>
     </div>
 
-    <!-- Component Danh sách Task -->
+    <!-- Task List Component -->
     <div class="px-4 pb-6 flex-1">
       <app-task-list [tasks]="tasks()"></app-task-list>
     </div>

@@ -5,7 +5,7 @@ import { Task } from '../models/task.model';
   providedIn: 'root'
 })
 export class TaskService {
-  // Thay BehaviorSubject bằng signal
+  // Replaced BehaviorSubject with Angular signal
   tasks = signal<Task[]>([]);
 
   constructor() {}
@@ -19,7 +19,7 @@ export class TaskService {
     };
     this.tasks.update(tasks => [...tasks, newTask]);
     
-    // TODO: Replace bằng HttpClient + environment.apiUrl
+    // TODO: Replace with HttpClient + environment.apiUrl
   }
 
   updateTaskStatus(id: string, status: 'today' | 'scheduled' | 'done'): void {
@@ -27,18 +27,18 @@ export class TaskService {
       task.id === id ? { ...task, status } : task
     ));
     
-    // TODO: Replace bằng HttpClient + environment.apiUrl
+    // TODO: Replace with HttpClient + environment.apiUrl
   }
 
   deleteTask(id: string): void {
     this.tasks.update(tasks => tasks.filter(task => task.id !== id));
     
-    // TODO: Replace bằng HttpClient + environment.apiUrl
+    // TODO: Replace with HttpClient + environment.apiUrl
   }
 
   clearDoneTasks(): void {
     this.tasks.update(tasks => tasks.filter(task => task.status !== 'done'));
     
-    // TODO: Replace bằng HttpClient + environment.apiUrl
+    // TODO: Replace with HttpClient + environment.apiUrl
   }
 }

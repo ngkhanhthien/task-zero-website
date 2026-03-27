@@ -12,7 +12,7 @@ export class AddTaskComponent {
   onAdd(title: string, inputElement: HTMLInputElement): void {
     if (title.trim()) {
       this.add.emit(title.trim());
-      inputElement.value = ''; // Reset
+      inputElement.value = ''; // Reset the input field after emitting
     }
   }
 }
