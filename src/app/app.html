@@ -1,8 +1,13 @@
-<main class="p-8 max-w-2xl mx-auto">
-  <h1 class="text-2xl font-bold mb-4">Task Manager - Phase 1 Foundation</h1>
-  
-  <p class="mb-4 text-gray-600">This is just a debug view of the data. Beautiful UI comes in Phase 2 & 3!</p>
-  
-  <h2 class="font-semibold text-lg text-gray-700">Current State (tasks$ via JSON pipe):</h2>
-  <pre class="bg-white p-4 rounded-xl shadow mt-2 text-sm overflow-auto">{{ tasks$ | async | json }}</pre>
+<main class="layout-container">
+  <div class="core-card">
+    <h1 class="text-2xl font-bold pt-4 pb-2 text-center text-gray-800 border-b">
+      Task Manager
+    </h1>
+    
+    <!-- Code tạm hiển thị Data -->
+    <div class="p-4 bg-gray-50 h-full">
+      <p class="text-xs text-gray-400 mb-2">Debug Data (tasks$):</p>
+      <pre class="text-sm text-gray-700">{{ tasks$ | async | json }}</pre>
+    </div>
+  </div>
 </main>
