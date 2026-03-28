@@ -66,9 +66,12 @@ export class TaskService {
 
   // DELETE /tasks/:id
   deleteTask(id: string): void {
-    this.tasks.update(tasks => tasks.filter(task => task.id !== id));
+    // Soft delete for future sync with backend
+    this.tasks.update(tasks =>
+      tasks.map(task => task.id === id ? { ...task, status: 'deleted' } : task)
+    );
     // TODO: this.http.delete(`${environment.apiUrl}/tasks/${id}`)
-    //   .subscribe(() => this.tasks.update(t => t.filter(task => task.id !== id)));
+    //   .subscribe(() => ...);
   }
 
   // DELETE /tasks?status=done

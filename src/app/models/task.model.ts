@@ -1,7 +1,7 @@
 export interface Task {
   id: string;
   title: string;
-  status: 'today' | 'scheduled' | 'done';
+  status: 'today' | 'scheduled' | 'done' | 'deleted';
   createdAt: string;
   dueDate?: string;
 }
