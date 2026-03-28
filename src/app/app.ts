@@ -38,6 +38,18 @@ export class App {
     );
   });
 
+  focusTask = computed(() => {
+    // Topmost 'today' task
+    return this.tasks()
+      .filter(t => t.status === 'today')
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0];
+  });
+
+  remainingTasks = computed(() => {
+    const focus = this.focusTask();
+    return this.filteredTasks().filter(t => t.id !== focus?.id);
+  });
+
   setTab(tab: Tab): void {
     this.currentTab.set(tab);
   }

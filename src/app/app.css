@@ -12,3 +12,36 @@
   display: flex;
   flex-direction: column;
 }
+
+/* Focus UI Styles */
+.focus-container {
+  /* No horizontal padding on mobile for full width, adjust in media query */
+  margin-bottom: 8px;
+}
+
+.focus-card {
+  background-color: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 16px 20px; /* Mobile padding */
+  transition: background-color 0.2s;
+}
+
+.focus-checkbox {
+  background-color: #ffffff;
+}
+.focus-checkbox:hover {
+  background-color: #f1f5f9;
+}
+
+@media (min-width: 640px) {
+  .focus-container {
+    padding: 0 24px;
+  }
+  
+  .focus-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 24px; /* Larger desktop padding */
+  }
+}

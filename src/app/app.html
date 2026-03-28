@@ -13,7 +13,7 @@
     </div>
 
     <!-- Tab Buttons -->
-    <div class="flex border-b px-4">
+    <div class="flex border-b px-4 mb-4">
       <button 
         id="tab-today"
         class="flex-1 py-2 text-sm font-semibold transition-colors"
@@ -46,9 +46,24 @@
       </button>
     </div>
 
+    @if (currentTab() === 'today' && focusTask()) {
+      <div class="focus-container">
+        <div class="focus-card min-h-24">
+          <p class="text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide">Focus</p>
+          <div class="flex items-center gap-3">
+            <button class="w-6 h-6 rounded-full border-2 border-gray-300 transition-colors focus-checkbox"
+                    (click)="onToggleTask(focusTask()!.id)"></button>
+            <span class="flex-1 text-lg sm:text-xl font-semibold text-gray-900 leading-tight">
+              {{ focusTask()!.title }}
+            </span>
+          </div>
+        </div>
+      </div>
+    }
+
     <!-- Task List Component — shows filteredTasks based on active tab -->
     <div class="px-4 pb-6 flex-1">
-      <app-task-list [tasks]="filteredTasks()" (toggle)="onToggleTask($event)" (delete)="onDeleteTask($event)"></app-task-list>
+      <app-task-list [tasks]="remainingTasks()" (toggle)="onToggleTask($event)" (delete)="onDeleteTask($event)"></app-task-list>
     </div>
   </div>
 </main>
