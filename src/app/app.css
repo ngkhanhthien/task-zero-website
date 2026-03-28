@@ -52,3 +52,34 @@
     padding: 24px; /* Larger desktop padding */
   }
 }
+
+/* Premium Web Tabs Custom Styles */
+.tab-container {
+  gap: 4px; /* Tighter spacing on mobile */
+}
+
+.tab-active {
+  background-color: #ffffff;
+  color: #0f172a; /* Slate 900 */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Active pill shadow */
+  transform: scale(1);
+}
+
+.tab-inactive {
+  color: #64748b; /* Slate 500 */
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tab-inactive:hover {
+    color: #334155; /* Darker slate on hover */
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+}
+
+@media (min-width: 640px) {
+  .tab-container {
+    gap: 8px; /* Comfortable horizontal spacing */
+    max-width: 480px; /* Constrain width on large screens to look premium */
+    margin: 0 auto;
+  }
+}

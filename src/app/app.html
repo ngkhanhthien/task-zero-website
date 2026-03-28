@@ -13,37 +13,33 @@
     </div>
 
     <!-- Tab Buttons -->
-    <div class="flex border-b px-4 mb-4">
-      <button 
-        id="tab-today"
-        class="flex-1 py-2 text-sm font-semibold transition-colors"
-        [class.text-gray-900]="currentTab() === 'today'"
-        [class.border-b-2]="currentTab() === 'today'"
-        [class.border-gray-800]="currentTab() === 'today'"
-        [class.text-gray-400]="currentTab() !== 'today'"
-        (click)="setTab('today')">
-        Today
-      </button>
-      <button 
-        id="tab-scheduled"
-        class="flex-1 py-2 text-sm font-semibold transition-colors"
-        [class.text-gray-900]="currentTab() === 'scheduled'"
-        [class.border-b-2]="currentTab() === 'scheduled'"
-        [class.border-gray-800]="currentTab() === 'scheduled'"
-        [class.text-gray-400]="currentTab() !== 'scheduled'"
-        (click)="setTab('scheduled')">
-        Scheduled
-      </button>
-      <button 
-        id="tab-done"
-        class="flex-1 py-2 text-sm font-semibold transition-colors"
-        [class.text-gray-900]="currentTab() === 'done'"
-        [class.border-b-2]="currentTab() === 'done'"
-        [class.border-gray-800]="currentTab() === 'done'"
-        [class.text-gray-400]="currentTab() !== 'done'"
-        (click)="setTab('done')">
-        Done
-      </button>
+    <div class="px-4 mb-6 relative">
+      <div class="flex p-1 bg-gray-100 rounded-lg tab-container shadow-inner">
+        <button 
+          id="tab-today"
+          class="flex-1 py-1.5 text-sm font-semibold rounded-md transition-all duration-200"
+          [class.tab-active]="currentTab() === 'today'"
+          [class.tab-inactive]="currentTab() !== 'today'"
+          (click)="setTab('today')">
+          Today
+        </button>
+        <button 
+          id="tab-scheduled"
+          class="flex-1 py-1.5 text-sm font-semibold rounded-md transition-all duration-200"
+          [class.tab-active]="currentTab() === 'scheduled'"
+          [class.tab-inactive]="currentTab() !== 'scheduled'"
+          (click)="setTab('scheduled')">
+          Scheduled
+        </button>
+        <button 
+          id="tab-done"
+          class="flex-1 py-1.5 text-sm font-semibold rounded-md transition-all duration-200"
+          [class.tab-active]="currentTab() === 'done'"
+          [class.tab-inactive]="currentTab() !== 'done'"
+          (click)="setTab('done')">
+          Done
+        </button>
+      </div>
     </div>
 
     @if (currentTab() === 'today' && focusTask()) {
