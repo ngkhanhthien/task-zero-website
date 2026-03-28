@@ -2,7 +2,7 @@ import { Component, inject, signal, computed } from '@angular/core';
 import { TaskService } from './core/task.service';
 import { ThemeService, ThemeMode } from './core/theme.service';
 import { TaskListComponent } from './components/task-list/task-list.component';
-import { AddTaskComponent } from './components/add-task/add-task.component';
+import { AddTaskComponent, TaskPayload } from './components/add-task/add-task.component';
 
 type Tab = 'today' | 'scheduled' | 'done';
 
@@ -89,8 +89,8 @@ export class App {
     this.currentTab.set(tab);
   }
 
-  onAddTask(title: string): void {
-    this.taskService.addTask(title);
+  onAddTask(payload: TaskPayload): void {
+    this.taskService.addTask(payload);
   }
 
   onToggleTask(id: string): void {

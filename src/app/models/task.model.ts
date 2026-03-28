@@ -10,4 +10,6 @@ export interface Task {
   duration?: number;
   // Recurrence pattern (undefined treated as 'none')
   repeat?: 'none' | 'daily' | 'weekly';
+  // Short text tag to categorize the task
+  label?: string;
 }

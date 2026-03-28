@@ -34,16 +34,19 @@ export class TaskService {
   }
 
   // POST /tasks
-  addTask(title: string): void {
+  addTask(payload: { title: string; dueDateTime?: string; duration?: number; label?: string; repeat?: 'none' | 'daily' | 'weekly' }): void {
     const newTask: Task = {
       id: crypto.randomUUID(),
-      title,
-      status: 'today',
-      createdAt: new Date().toISOString()
+      title:       payload.title,
+      status:      'today',
+      createdAt:   new Date().toISOString(),
+      dueDateTime: payload.dueDateTime,
+      duration:    payload.duration,
+      label:       payload.label,
+      repeat:      payload.repeat,
     };
     this.tasks.update(tasks => [...tasks, newTask]);
-    // TODO: this.http.post<Task>(`${environment.apiUrl}/tasks`, { title })
-    //   .subscribe(task => this.tasks.update(t => [...t, task]));
+    // TODO: this.http.post<Task>(`${environment.apiUrl}/tasks`, payload)
   }
 
   // PATCH /tasks/:id

@@ -15,7 +15,7 @@ export interface TaskPayload {
   templateUrl: './add-task.component.html'
 })
 export class AddTaskComponent {
-  add = output<string>();
+  add = output<TaskPayload>();
 
   // DOM ref for title input
   inputRef = viewChild<ElementRef<HTMLInputElement>>('taskInput');
@@ -49,7 +49,7 @@ export class AddTaskComponent {
       repeat:      this.repeat() !== 'none' ? this.repeat() : undefined,
     };
 
-    this.add.emit(payload.title); // still emitting string — changed in 42c
+    this.add.emit(payload); // emit full payload
 
     // Reset all fields after emit
     input.value = '';
