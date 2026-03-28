@@ -1,6 +1,9 @@
 {
-  "name": "task-zero-website",
-  "short_name": "task-zero-website",
+  "name": "Task Zero",
+  "short_name": "Task Zero",
+  "description": "Minimalist task management for modern professionals.",
+  "theme_color": "#ffffff",
+  "background_color": "#f8fafc",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
