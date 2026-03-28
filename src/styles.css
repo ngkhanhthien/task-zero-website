@@ -2,17 +2,47 @@
 
 @import "tailwindcss";
 
+/* ─── Premium Web Color Variables ───────────────────── */
+:root {
+  --bg-app: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-secondary: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --border-color: #e2e8f0;
+}
+
+/* OLED-Optimized Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg-app: #000000;      /* True black for OLED screens */
+    --bg-card: #111111;     /* Dark gray elevation */
+    --bg-secondary: #1a1a1a;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --border-color: #222222;
+  }
+
+  /* Automatic Tailwind Overrides for Dark Mode */
+  .bg-white { background-color: var(--bg-card) !important; }
+  .bg-gray-50, .bg-gray-100 { background-color: var(--bg-secondary) !important; }
+  .text-gray-900, .text-gray-800 { color: var(--text-primary) !important; }
+  .text-gray-500, .text-gray-400 { color: var(--text-secondary) !important; }
+  .border-gray-50, .border-gray-100, .border-gray-200 { border-color: var(--border-color) !important; }
+}
+
 /* ─── Base ─────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 body {
-  background: #f5f5f7;
+  background-color: var(--bg-app);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 15px;
   font-weight: 400;
-  color: #1d1d1f;
+  color: var(--text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
