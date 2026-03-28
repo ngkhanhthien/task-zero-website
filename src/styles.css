@@ -12,25 +12,40 @@
   --border-color: #e2e8f0;
 }
 
-/* OLED-Optimized Dark Mode */
+/* OLED-Optimized Dark Mode (System Fallback) */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light) {
     color-scheme: dark;
-    --bg-app: #000000;      /* True black for OLED screens */
-    --bg-card: #111111;     /* Dark gray elevation */
+    --bg-app: #000000;
+    --bg-card: #111111;
     --bg-secondary: #1a1a1a;
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
     --border-color: #222222;
   }
-
-  /* Automatic Tailwind Overrides for Dark Mode */
-  .bg-white { background-color: var(--bg-card) !important; }
-  .bg-gray-50, .bg-gray-100 { background-color: var(--bg-secondary) !important; }
-  .text-gray-900, .text-gray-800 { color: var(--text-primary) !important; }
-  .text-gray-500, .text-gray-400 { color: var(--text-secondary) !important; }
-  .border-gray-50, .border-gray-100, .border-gray-200 { border-color: var(--border-color) !important; }
+  :root:not(.light) body .bg-white { background-color: var(--bg-card) !important; }
+  :root:not(.light) body .bg-gray-50, :root:not(.light) body .bg-gray-100 { background-color: var(--bg-secondary) !important; }
+  :root:not(.light) body .text-gray-900, :root:not(.light) body .text-gray-800 { color: var(--text-primary) !important; }
+  :root:not(.light) body .text-gray-500, :root:not(.light) body .text-gray-400 { color: var(--text-secondary) !important; }
+  :root:not(.light) body .border-gray-50, :root:not(.light) body .border-gray-100, :root:not(.light) body .border-gray-200 { border-color: var(--border-color) !important; }
 }
+
+/* Base Styles (Manual Forces) */
+:root.dark {
+  color-scheme: dark;
+  --bg-app: #000000;
+  --bg-card: #111111;
+  --bg-secondary: #1a1a1a;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: #222222;
+}
+
+:root.dark body .bg-white { background-color: var(--bg-card) !important; }
+:root.dark body .bg-gray-50, :root.dark body .bg-gray-100 { background-color: var(--bg-secondary) !important; }
+:root.dark body .text-gray-900, :root.dark body .text-gray-800 { color: var(--text-primary) !important; }
+:root.dark body .text-gray-500, :root.dark body .text-gray-400 { color: var(--text-secondary) !important; }
+:root.dark body .border-gray-50, :root.dark body .border-gray-100, :root.dark body .border-gray-200 { border-color: var(--border-color) !important; }
 
 /* ─── Base ─────────────────────────────────────────── */
 *, *::before, *::after {
