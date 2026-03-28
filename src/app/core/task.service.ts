@@ -80,4 +80,16 @@ export class TaskService {
     // TODO: this.http.delete(`${environment.apiUrl}/tasks`, { params: { status: 'done' } })
     //   .subscribe(() => this.tasks.update(t => t.filter(task => task.status !== 'done')));
   }
+
+  // Reset daily tasks to scheduled
+  resetDaily(): void {
+    this.tasks.update(tasks =>
+      tasks.map(task => {
+        if (task.status === 'today') {
+          return { ...task, status: 'scheduled' };
+        }
+        return task;
+      })
+    );
+  }
 }
