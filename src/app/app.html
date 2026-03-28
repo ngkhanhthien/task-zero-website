@@ -1,10 +1,23 @@
 <main class="layout-container">
   <div class="core-card">
-    <header class="pt-8 pb-6 text-center border-b border-gray-50">
+    <header class="pt-8 pb-6 text-center border-b border-gray-50 relative">
       <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">
         Task Zero
       </h1>
       <p class="text-gray-400 text-sm mt-1">Focus on what matters today</p>
+
+      <!-- Theme Toggle Button -->
+      <button
+        class="absolute top-6 right-6 p-2 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-500 hover:text-gray-900 transition-colors shadow-sm"
+        (click)="toggleTheme()" title="Toggle Theme">
+        @if (themeService.theme() === 'system') {
+        <span class="text-lg">Auto</span>
+        } @else if (themeService.theme() === 'light') {
+        <span class="text-lg">Light</span>
+        } @else {
+        <span class="text-lg">Dark</span>
+        }
+      </button>
     </header>
 
     <!-- Add Task Component -->
@@ -15,27 +28,18 @@
     <!-- Tab Buttons -->
     <div class="px-4 mb-6 relative">
       <div class="flex p-1 bg-gray-100 rounded-lg tab-container shadow-inner">
-        <button 
-          id="tab-today"
-          class="flex-1 py-1.5 text-sm font-semibold rounded-md transition-all duration-200"
-          [class.tab-active]="currentTab() === 'today'"
-          [class.tab-inactive]="currentTab() !== 'today'"
+        <button id="tab-today" class="flex-1 py-1.5 text-sm font-semibold rounded-md transition-all duration-200"
+          [class.tab-active]="currentTab() === 'today'" [class.tab-inactive]="currentTab() !== 'today'"
           (click)="setTab('today')">
           Today
         </button>
-        <button 
-          id="tab-scheduled"
-          class="flex-1 py-1.5 text-sm font-semibold rounded-md transition-all duration-200"
-          [class.tab-active]="currentTab() === 'scheduled'"
-          [class.tab-inactive]="currentTab() !== 'scheduled'"
+        <button id="tab-scheduled" class="flex-1 py-1.5 text-sm font-semibold rounded-md transition-all duration-200"
+          [class.tab-active]="currentTab() === 'scheduled'" [class.tab-inactive]="currentTab() !== 'scheduled'"
           (click)="setTab('scheduled')">
           Scheduled
         </button>
-        <button 
-          id="tab-done"
-          class="flex-1 py-1.5 text-sm font-semibold rounded-md transition-all duration-200"
-          [class.tab-active]="currentTab() === 'done'"
-          [class.tab-inactive]="currentTab() !== 'done'"
+        <button id="tab-done" class="flex-1 py-1.5 text-sm font-semibold rounded-md transition-all duration-200"
+          [class.tab-active]="currentTab() === 'done'" [class.tab-inactive]="currentTab() !== 'done'"
           (click)="setTab('done')">
           Done
         </button>
@@ -43,23 +47,24 @@
     </div>
 
     @if (currentTab() === 'today' && focusTask()) {
-      <div class="focus-container">
-        <div class="focus-card min-h-24">
-          <p class="text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide">Focus</p>
-          <div class="flex items-center gap-3">
-            <button class="w-6 h-6 rounded-full border-2 border-gray-300 transition-colors focus-checkbox"
-                    (click)="onToggleTask(focusTask()!.id)"></button>
-            <span class="flex-1 text-lg sm:text-xl font-semibold text-gray-900 leading-tight">
-              {{ focusTask()!.title }}
-            </span>
-          </div>
+    <div class="focus-container">
+      <div class="focus-card min-h-24">
+        <p class="text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide">Focus</p>
+        <div class="flex items-center gap-3">
+          <button class="w-6 h-6 rounded-full border-2 border-gray-300 transition-colors focus-checkbox"
+            (click)="onToggleTask(focusTask()!.id)"></button>
+          <span class="flex-1 text-lg sm:text-xl font-semibold text-gray-900 leading-tight">
+            {{ focusTask()!.title }}
+          </span>
         </div>
       </div>
+    </div>
     }
 
     <!-- Task List Component — shows filteredTasks based on active tab -->
     <div class="px-4 pb-6 flex-1">
-      <app-task-list [tasks]="remainingTasks()" (toggle)="onToggleTask($event)" (delete)="onDeleteTask($event)"></app-task-list>
+      <app-task-list [tasks]="remainingTasks()" (toggle)="onToggleTask($event)"
+        (delete)="onDeleteTask($event)"></app-task-list>
     </div>
   </div>
 </main>

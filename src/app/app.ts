@@ -1,5 +1,6 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { TaskService } from './core/task.service';
+import { ThemeService, ThemeMode } from './core/theme.service';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { AddTaskComponent } from './components/add-task/add-task.component';
 
@@ -13,6 +14,18 @@ type Tab = 'today' | 'scheduled' | 'done';
 })
 export class App {
   private taskService = inject(TaskService);
+  themeService = inject(ThemeService);
+
+  toggleTheme(): void {
+    const current = this.themeService.theme();
+    if (current === 'system') {
+      this.themeService.setTheme('light');
+    } else if (current === 'light') {
+      this.themeService.setTheme('dark');
+    } else {
+      this.themeService.setTheme('system');
+    }
+  }
 
   // Directly reference the service Signal — no async pipe needed!
   tasks = this.taskService.tasks;
