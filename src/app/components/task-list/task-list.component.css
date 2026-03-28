@@ -1,8 +1,17 @@
+/* Premium web UI inspired by Task Zero logic */
 .task-row {
   position: relative;
+  border-radius: 12px; /* Modern web standard */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04); /* clean subtle shadow */
+  transition: all 0.2s ease;
 }
 
-.task-row:hover {
-  background-color: #f0f0f5;
-  border-color: #e0e0e9;
+@media (hover: hover) and (pointer: fine) {
+  /* Desktop: Premium Web Hover Effects */
+  .task-row:hover {
+    background-color: #ffffff;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08); /* shadow elevation */
+    transform: translateY(-2px);
+    border-color: #e2e8f0;
+  }
 }
