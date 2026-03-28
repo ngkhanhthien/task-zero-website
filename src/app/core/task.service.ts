@@ -92,4 +92,24 @@ export class TaskService {
       })
     );
   }
+
+  // TODO: integrate with backend API
+  // Using modern async/await for Signal-friendly data fetching (replaces RxJS)
+  async syncFromServer(): Promise<void> {
+    // Placeholder for backend GET request
+    // e.g., const response = await fetch('/api/tasks');
+    // const data = await response.json();
+    // this.tasks.set(data);
+    console.log('Syncing from server...');
+  }
+
+  // TODO: integrate with backend API 
+  async syncToServer(): Promise<void> {
+    // Placeholder for backend Sync request
+    // e.g., await fetch('/api/sync', { 
+    //   method: 'POST', 
+    //   body: JSON.stringify(this.tasks()) 
+    // });
+    console.log('Syncing to server...');
+  }
 }
