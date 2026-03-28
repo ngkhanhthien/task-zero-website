@@ -49,7 +49,16 @@ export class TaskService {
   // PATCH /tasks/:id
   updateTaskStatus(id: string, status: 'today' | 'scheduled' | 'done'): void {
     this.tasks.update(tasks =>
-      tasks.map(task => task.id === id ? { ...task, status } : task)
+      tasks.map(task => {
+        if (task.id === id) {
+          // One-way completion to match product behavior
+          if (task.status === 'done' && status === 'today') {
+            return task;
+          }
+          return { ...task, status };
+        }
+        return task;
+      })
     );
     // TODO: this.http.patch(`${environment.apiUrl}/tasks/${id}`, { status })
     //   .subscribe(() => { /* refresh or update signal */ });
