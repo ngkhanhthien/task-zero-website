@@ -6,6 +6,30 @@
   transition: all 0.2s ease;
 }
 
+/* Touch UX: Maintain min-height tap areas by default */
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px; /* Mobile safe tap area */
+  padding: 0 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.btn-done {
+  background-color: #dcfce7; /* green-100 */
+  color: #15803d; /* green-700 */
+}
+
+.btn-delete {
+  background-color: #fee2e2; /* red-100 */
+  color: #ef4444; /* red-500 */
+}
+
 @media (hover: hover) and (pointer: fine) {
   /* Desktop: Premium Web Hover Effects */
   .task-row:hover {
@@ -13,5 +37,17 @@
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08); /* shadow elevation */
     transform: translateY(-2px);
     border-color: #e2e8f0;
+  }
+
+  .btn-done:hover { background-color: #bbf7d0; } /* green-200 */
+  .btn-delete:hover { background-color: #fecaca; } /* red-200 */
+
+  .action-buttons { opacity: 0; }
+  .task-row:hover .action-buttons { opacity: 1; }
+
+  .btn-action {
+    min-height: 32px; /* Tighter interaction on desktop */
+    padding: 0 12px;
+    font-size: 0.75rem;
   }
 }

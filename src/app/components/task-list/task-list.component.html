@@ -13,17 +13,17 @@
         {{ task.title }}
       </span>
 
-      <!-- Hover action buttons — visible only on hover -->
-      <div class="action-buttons flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+      <!-- Action buttons: Always visible on Mobile, hover-only on Desktop -->
+      <div class="action-buttons flex gap-2 transition-opacity duration-200">
         <button
           id="btn-done-{{ task.id }}"
-          class="px-3 py-1 text-xs font-semibold rounded-lg bg-green-100 text-green-700 hover:bg-green-200 transition-colors"
+          class="btn-action btn-done"
           (click)="onToggle(task.id); $event.stopPropagation()">
           ✓ Done
         </button>
         <button
           id="btn-delete-{{ task.id }}"
-          class="px-3 py-1 text-xs font-semibold rounded-lg bg-red-100 text-red-500 hover:bg-red-200 transition-colors"
+          class="btn-action btn-delete"
           (click)="onDelete(task.id, $event)">
           🗑 Delete
         </button>
