@@ -25,9 +25,20 @@ export class App {
     const tab = this.currentTab();
     const all = this.tasks();
 
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+
     const filtered = all.filter(task => {
-      if (tab === 'today')     return task.status === 'today';
-      if (tab === 'scheduled') return task.status === 'scheduled' && !!task.dueDate;
+      let isOverdue = false;
+      if (task.status === 'scheduled' && task.dueDate) {
+        const due = new Date(task.dueDate);
+        due.setHours(0, 0, 0, 0);
+        isOverdue = due.getTime() < todayStart.getTime();
+      }
+
+      // Treat overdue tasks as today's tasks
+      if (tab === 'today')     return task.status === 'today' || isOverdue;
+      if (tab === 'scheduled') return task.status === 'scheduled' && !!task.dueDate && !isOverdue;
       if (tab === 'done')      return task.status === 'done';
       return false;
     });
@@ -39,9 +50,20 @@ export class App {
   });
 
   focusTask = computed(() => {
-    // Topmost 'today' task
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+
+    // Topmost 'today' task (or overdue)
     return this.tasks()
-      .filter(t => t.status === 'today')
+      .filter(task => {
+        let isOverdue = false;
+        if (task.status === 'scheduled' && task.dueDate) {
+          const due = new Date(task.dueDate);
+          due.setHours(0, 0, 0, 0);
+          isOverdue = due.getTime() < todayStart.getTime();
+        }
+        return task.status === 'today' || isOverdue;
+      })
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0];
   });
 
