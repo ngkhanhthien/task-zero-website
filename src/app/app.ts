@@ -50,14 +50,14 @@ export class App {
       }
 
       // Treat overdue tasks as today's tasks
-      if (tab === 'today')     return task.status === 'today' || isOverdue;
+      if (tab === 'today') return task.status === 'today' || isOverdue;
       if (tab === 'scheduled') return task.status === 'scheduled' && !!task.dueDate && !isOverdue;
-      if (tab === 'done')      return task.status === 'done';
+      if (tab === 'done') return task.status === 'done';
       return false;
     });
 
     // Sort by createdAt DESC (newest first)
-    return filtered.sort((a, b) => 
+    return filtered.sort((a, b) =>
       new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
   });
