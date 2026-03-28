@@ -37,9 +37,25 @@ export class AddTaskComponent {
     if (!input) return;
 
     const title = input.value.trim();
-    if (title) {
-      this.add.emit(title);
-      input.value = ''; // Reset the input field
-    }
+    if (!title) return;
+
+    // Build payload from signals — output type stays string until 42c
+    const rawDuration = parseFloat(this.duration());
+    const payload: TaskPayload = {
+      title,
+      dueDateTime: this.dueDateTime() || undefined,
+      duration:    isNaN(rawDuration) ? undefined : rawDuration,
+      label:       this.label().trim() || undefined,
+      repeat:      this.repeat() !== 'none' ? this.repeat() : undefined,
+    };
+
+    this.add.emit(payload.title); // still emitting string — changed in 42c
+
+    // Reset all fields after emit
+    input.value = '';
+    this.dueDateTime.set('');
+    this.duration.set('');
+    this.label.set('');
+    this.repeat.set('none');
   }
 }
