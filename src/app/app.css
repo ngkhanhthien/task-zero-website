@@ -1,7 +1,14 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #f8fafc; /* Web-native default background element */
+}
+
 .layout-container {
-  max-width: 720px;
-  margin: 60px auto 80px auto; /* More vertical breathing room */
-  padding: 0 20px; /* Padding for mobile/narrow viewports */
+  max-width: 800px;
+  width: 100%;
+  margin: 60px auto 80px auto; /* Centered, top margin */
+  padding: 0 16px; /* Mobile padding */
 }
 
 .core-card {
