@@ -65,6 +65,40 @@
               <span>{{ focusTask()!.duration }} min</span>
               }
             </div>
+
+            <!-- Pomodoro Timer -->
+            @if (pomodoro().status !== 'idle') {
+            <div class="flex items-center gap-3 mt-3 p-3 bg-gray-50 rounded-lg">
+              <div class="text-center">
+                <div class="text-lg font-mono font-bold text-gray-900">
+                  {{ formatTimer(pomodoro().timeLeft) }}
+                </div>
+                <div class="text-xs text-gray-600 uppercase">
+                  {{ pomodoro().status === 'work' ? 'Work' : pomodoro().status === 'longBreak' ? 'Long Break' : 'Break' }}
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <button 
+                  class="w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center text-sm"
+                  (click)="pomodoro().status === 'work' || pomodoro().status === 'break' || pomodoro().status === 'longBreak' ? pausePomodoro() : startPomodoro()">
+                  {{ pomodoro().status === 'work' || pomodoro().status === 'break' || pomodoro().status === 'longBreak' ? '⏸️' : '▶️' }}
+                </button>
+                <button 
+                  class="w-8 h-8 rounded-full bg-gray-500 hover:bg-gray-600 text-white flex items-center justify-center text-sm"
+                  (click)="resetPomodoro()">
+                  🔄
+                </button>
+              </div>
+            </div>
+            } @else {
+            <div class="mt-3">
+              <button 
+                class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors"
+                (click)="startPomodoro()">
+                Start Pomodoro
+              </button>
+            </div>
+            }
           </div>
         </div>
       </div>

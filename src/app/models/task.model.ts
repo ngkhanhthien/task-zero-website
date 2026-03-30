@@ -12,4 +12,6 @@ export interface Task {
   repeat?: 'none' | 'daily' | 'weekly';
   // Short text tag to categorize the task
   label?: string;
+  // Pomodoro timer settings (work/break in minutes, sessions before long break)
+  pomodoro?: { work: number, break: number, longBreak: number, sessions: number };
 }

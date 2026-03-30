@@ -3,6 +3,12 @@ import { Task } from '../models/task.model';
 
 const STORAGE_KEY = 'tasks';
 
+interface PomodoroState {
+  status: 'idle' | 'work' | 'break' | 'longBreak';
+  timeLeft: number; // in seconds
+  currentSession: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,6 +16,11 @@ export class TaskService {
   // Local signal store — mirrors what a REST API response would look like.
   // TODO: Replace with HttpClient calls to environment.apiUrl
   tasks = signal<Task[]>(this.loadFromStorage());
+
+  // Pomodoro timer state
+  pomodoro = signal<PomodoroState>({ status: 'idle', timeLeft: 0, currentSession: 0 });
+
+  private pomodoroInterval?: number;
 
   constructor() {
     // effect() auto-saves to localStorage whenever tasks signal changes
@@ -94,6 +105,56 @@ export class TaskService {
         return task;
       })
     );
+  }
+
+  // Pomodoro timer methods
+  startPomodoro(workMinutes = 25, breakMinutes = 5, longBreakMinutes = 15, sessions = 4): void {
+    if (this.pomodoroInterval) clearInterval(this.pomodoroInterval);
+    
+    this.pomodoro.set({
+      status: 'work',
+      timeLeft: workMinutes * 60,
+      currentSession: 1
+    });
+
+    this.pomodoroInterval = window.setInterval(() => {
+      this.pomodoro.update(state => {
+        if (state.timeLeft <= 1) {
+          // Session complete
+          if (state.status === 'work') {
+            const isLongBreak = state.currentSession % sessions === 0;
+            return {
+              status: isLongBreak ? 'longBreak' : 'break',
+              timeLeft: isLongBreak ? longBreakMinutes * 60 : breakMinutes * 60,
+              currentSession: state.currentSession
+            };
+          } else {
+            // Break complete, start next work session
+            return {
+              status: 'work',
+              timeLeft: workMinutes * 60,
+              currentSession: state.currentSession + 1
+            };
+          }
+        }
+        return { ...state, timeLeft: state.timeLeft - 1 };
+      });
+    }, 1000);
+  }
+
+  pausePomodoro(): void {
+    if (this.pomodoroInterval) {
+      clearInterval(this.pomodoroInterval);
+      this.pomodoroInterval = undefined;
+    }
+  }
+
+  resetPomodoro(): void {
+    if (this.pomodoroInterval) {
+      clearInterval(this.pomodoroInterval);
+      this.pomodoroInterval = undefined;
+    }
+    this.pomodoro.set({ status: 'idle', timeLeft: 0, currentSession: 0 });
   }
 
   // TODO: integrate with backend API

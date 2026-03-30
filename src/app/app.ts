@@ -16,6 +16,9 @@ export class App {
   private taskService = inject(TaskService);
   themeService = inject(ThemeService);
 
+  // Expose pomodoro state for template
+  pomodoro = this.taskService.pomodoro;
+
   toggleTheme(): void {
     const current = this.themeService.theme();
     if (current === 'system') {
@@ -119,10 +122,29 @@ export class App {
     this.taskService.deleteTask(id);
   }
 
+  // Pomodoro timer controls
+  startPomodoro(): void {
+    this.taskService.startPomodoro();
+  }
+
+  pausePomodoro(): void {
+    this.taskService.pausePomodoro();
+  }
+
+  resetPomodoro(): void {
+    this.taskService.resetPomodoro();
+  }
+
   formatDateTime(iso: string | undefined): string {
     if (!iso) return '';
     const d = new Date(iso);
     return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }) +
       ' • ' + d.toLocaleDateString([], { month: 'short', day: '2-digit' });
+  }
+
+  formatTimer(seconds: number): string {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   }
 }
