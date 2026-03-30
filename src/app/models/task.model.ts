@@ -14,4 +14,8 @@ export interface Task {
   label?: string;
   // Pomodoro timer settings (work/break in minutes, sessions before long break)
   pomodoro?: { work: number, break: number, longBreak: number, sessions: number };
+  // Task type: regular task or habit
+  type?: 'task' | 'habit';
+  // Habit tracking data (only for habit type)
+  habit?: { streak: number, target: number, frequency: 'daily' | 'weekly' };
 }

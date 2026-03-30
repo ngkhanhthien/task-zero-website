@@ -7,6 +7,8 @@ export interface TaskPayload {
   duration?: number;
   label?: string;
   repeat?: 'none' | 'daily' | 'weekly';
+  type?: 'task' | 'habit';
+  habit?: { target: number; frequency: 'daily' | 'weekly' };
 }
 
 @Component({
@@ -26,6 +28,11 @@ export class AddTaskComponent {
   label       = signal<string>('');
   repeat      = signal<'none' | 'daily' | 'weekly'>('none');
 
+  // Habit signals
+  isHabit     = signal<boolean>(false);
+  habitTarget = signal<string>('');
+  habitFrequency = signal<'daily' | 'weekly'>('daily');
+
   constructor() {
     afterNextRender(() => {
       this.inputRef()?.nativeElement.focus();
@@ -41,12 +48,18 @@ export class AddTaskComponent {
 
     // Build payload from signals — output type stays string until 42c
     const rawDuration = parseFloat(this.duration());
+    const rawHabitTarget = parseFloat(this.habitTarget());
     const payload: TaskPayload = {
       title,
       dueDateTime: this.dueDateTime() || undefined,
       duration:    isNaN(rawDuration) ? undefined : rawDuration,
       label:       this.label().trim() || undefined,
       repeat:      this.repeat() !== 'none' ? this.repeat() : undefined,
+      type:        this.isHabit() ? 'habit' : 'task',
+      habit:       this.isHabit() ? {
+        target: isNaN(rawHabitTarget) ? 1 : rawHabitTarget,
+        frequency: this.habitFrequency()
+      } : undefined,
     };
 
     this.add.emit(payload); // emit full payload
@@ -57,5 +70,8 @@ export class AddTaskComponent {
     this.duration.set('');
     this.label.set('');
     this.repeat.set('none');
+    this.isHabit.set(false);
+    this.habitTarget.set('');
+    this.habitFrequency.set('daily');
   }
 }

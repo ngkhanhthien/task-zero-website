@@ -1,8 +1,33 @@
 <div class="mb-4 flex flex-col gap-2">
+  <!-- Habit toggle -->
+  <div class="flex items-center gap-2">
+    <input type="checkbox" id="habit-toggle"
+      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+      [checked]="isHabit()" (change)="isHabit.set($any($event.target).checked)" />
+    <label for="habit-toggle" class="text-sm text-gray-600">Make this a habit</label>
+  </div>
+
   <!-- Primary title input -->
   <input #taskInput type="text" placeholder="Add a task..."
     class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-transparent transition-all text-gray-900 placeholder-gray-400 text-[16px] shadow-sm"
     (keyup.enter)="onAdd()" />
+
+  <!-- Habit frequency selector (only when habit is enabled) -->
+  @if (isHabit()) {
+  <div class="flex gap-2 items-center">
+    <span class="text-sm text-gray-600">Target:</span>
+    <input type="number" min="1" placeholder="1"
+      class="w-20 px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-800 transition-all"
+      [value]="habitTarget()" (input)="habitTarget.set($any($event.target).value)" />
+    <span class="text-sm text-gray-600">times per</span>
+    <select
+      class="px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-800 transition-all"
+      [value]="habitFrequency()" (change)="habitFrequency.set($any($event.target).value)">
+      <option value="daily">day</option>
+      <option value="weekly">week</option>
+    </select>
+  </div>
+  }
 
   <!-- Metadata row: datetime, duration, label, repeat -->
   <div class="flex flex-wrap gap-2">

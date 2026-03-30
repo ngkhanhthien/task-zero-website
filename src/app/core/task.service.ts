@@ -1,5 +1,6 @@
-import { Injectable, signal, effect } from '@angular/core';
+import { Injectable, signal, effect, computed } from '@angular/core';
 import { Task } from '../models/task.model';
+import { TaskPayload } from '../components/add-task/add-task.component';
 
 const STORAGE_KEY = 'tasks';
 
@@ -45,7 +46,7 @@ export class TaskService {
   }
 
   // POST /tasks
-  addTask(payload: { title: string; dueDateTime?: string; duration?: number; label?: string; repeat?: 'none' | 'daily' | 'weekly' }): void {
+  addTask(payload: TaskPayload): void {
     const newTask: Task = {
       id: crypto.randomUUID(),
       title:       payload.title,
@@ -55,6 +56,8 @@ export class TaskService {
       duration:    payload.duration,
       label:       payload.label,
       repeat:      payload.repeat,
+      type:        payload.type || 'task',
+      habit:       payload.habit ? { ...payload.habit, streak: 0 } : undefined,
     };
     this.tasks.update(tasks => [...tasks, newTask]);
     // TODO: this.http.post<Task>(`${environment.apiUrl}/tasks`, payload)
@@ -69,6 +72,16 @@ export class TaskService {
           if (task.status === 'done' && status === 'today') {
             return task;
           }
+
+          // Habit tracking: increment streak when habit is completed
+          if (task.type === 'habit' && status === 'done' && task.status !== 'done') {
+            return {
+              ...task,
+              status,
+              habit: task.habit ? { ...task.habit, streak: task.habit.streak + 1 } : undefined
+            };
+          }
+
           return { ...task, status };
         }
         return task;
@@ -155,6 +168,23 @@ export class TaskService {
       this.pomodoroInterval = undefined;
     }
     this.pomodoro.set({ status: 'idle', timeLeft: 0, currentSession: 0 });
+  }
+
+  // Habit-specific computed signals
+  get habits() {
+    return computed(() => this.tasks().filter(task => task.type === 'habit'));
+  }
+
+  get habitStreaks() {
+    return computed(() => 
+      this.habits().map(habit => ({
+        id: habit.id,
+        title: habit.title,
+        streak: habit.habit?.streak || 0,
+        target: habit.habit?.target || 1,
+        frequency: habit.habit?.frequency || 'daily'
+      }))
+    );
   }
 
   // TODO: integrate with backend API
