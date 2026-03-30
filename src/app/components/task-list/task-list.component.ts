@@ -10,6 +10,7 @@ import { Task } from '../../models/task.model';
 export class TaskListComponent {
   // Signal Input (Angular 21)
   tasks = input.required<Task[]>();
+  focusId = input<string | undefined>();
 
   // Signal Outputs — emit task ID
   toggle = output<string>();

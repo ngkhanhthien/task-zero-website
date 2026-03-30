@@ -2,6 +2,7 @@
   @for (task of tasks(); track task.id) {
     <li 
       class="task-row group p-4 bg-gray-50 border border-gray-100 rounded-xl transition-all flex items-center justify-between shadow-sm cursor-pointer select-none"
+      [class.focus-row]="task.id === focusId()"
       (click)="onToggle(task.id)">
 
       <!-- Task title -->

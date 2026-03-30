@@ -81,3 +81,18 @@
   background-color: #f3f4f6;
   border-radius: 4px;
 }
+
+/* Desktop hover elevation */
+@media (hover: hover) and (pointer: fine) {
+  .task-row:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
+  }
+}
+
+/* Focus task highlight */
+.focus-row {
+  border-left: 4px solid #3b82f6;
+  background-color: #eff6ff;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+}

@@ -97,6 +97,8 @@ export class App {
     return this.filteredTasks().filter(t => t.id !== focus?.id);
   });
 
+  focusTaskId = computed(() => this.focusTask()?.id);
+
   setTab(tab: Tab): void {
     this.currentTab.set(tab);
   }

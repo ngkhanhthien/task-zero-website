@@ -73,7 +73,7 @@
 
     <!-- Task List Component — shows filteredTasks based on active tab -->
     <div class="px-4 pb-6 flex-1">
-      <app-task-list [tasks]="remainingTasks()" (toggle)="onToggleTask($event)"
+      <app-task-list [tasks]="remainingTasks()" [focusId]="focusTaskId()" (toggle)="onToggleTask($event)"
         (delete)="onDeleteTask($event)"></app-task-list>
     </div>
   </div>
