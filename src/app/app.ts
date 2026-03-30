@@ -63,12 +63,24 @@ export class App {
   });
 
   focusTask = computed(() => {
+    const allTasks = this.tasks();
+    const now = new Date().getTime();
+
+    // 1. Pick task with nearest upcoming dueDateTime (not yet passed)
+    const timedTasks = allTasks
+      .filter(t => t.dueDateTime && t.status !== 'done' && new Date(t.dueDateTime).getTime() >= now)
+      .sort((a, b) => new Date(a.dueDateTime!).getTime() - new Date(b.dueDateTime!).getTime());
+
+    if (timedTasks.length > 0) return timedTasks[0];
+
+    // 2. Fallback: First 'today' task by createdAt (newest first)
     const todayStart = new Date();
     todayStart.setHours(0, 0, 0, 0);
 
-    // Topmost 'today' task (or overdue)
-    return this.tasks()
+    return allTasks
       .filter(task => {
+        if (task.status === 'done') return false;
+        
         let isOverdue = false;
         if (task.status === 'scheduled' && task.dueDate) {
           const due = new Date(task.dueDate);
@@ -103,5 +115,12 @@ export class App {
 
   onDeleteTask(id: string): void {
     this.taskService.deleteTask(id);
+  }
+
+  formatDateTime(iso: string | undefined): string {
+    if (!iso) return '';
+    const d = new Date(iso);
+    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }) +
+      ' • ' + d.toLocaleDateString([], { month: 'short', day: '2-digit' });
   }
 }
