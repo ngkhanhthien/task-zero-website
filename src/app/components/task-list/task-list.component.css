@@ -64,3 +64,20 @@
     font-size: 0.75rem;
   }
 }
+
+/* Metadata badges and progress bar */
+.label-badge {
+  font-weight: 500;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.meta-text {
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.progress-bar {
+  background-color: #f3f4f6;
+  border-radius: 4px;
+}

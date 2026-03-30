@@ -23,4 +23,10 @@ export class TaskListComponent {
     event.stopPropagation(); // Prevent triggering toggle
     this.delete.emit(id);
   }
+
+  formatDateTime(iso: string): string {
+    const d = new Date(iso);
+    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }) +
+      ' • ' + d.toLocaleDateString([], { month: 'short', day: '2-digit' });
+  }
 }

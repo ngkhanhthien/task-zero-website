@@ -5,13 +5,47 @@
       (click)="onToggle(task.id)">
 
       <!-- Task title -->
-      <span 
-        class="font-medium transition-all"
-        [class.line-through]="task.status === 'done'"
-        [class.text-gray-400]="task.status === 'done'"
-        [class.text-gray-800]="task.status !== 'done'">
-        {{ task.title }}
-      </span>
+      <div class="flex-1">
+        <span 
+          class="font-medium transition-all"
+          [class.line-through]="task.status === 'done'"
+          [class.text-gray-400]="task.status === 'done'"
+          [class.text-gray-800]="task.status !== 'done'">
+          {{ task.title }}
+        </span>
+
+        <!-- Metadata badges -->
+        <div class="flex gap-2 mt-2 text-sm">
+          @if (task.label) {
+          <span class="label-badge px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+            {{ task.label }}
+          </span>
+          }
+          @if (task.dueDateTime) {
+          <span class="meta-text text-gray-600">
+            {{ formatDateTime(task.dueDateTime) }}
+          </span>
+          }
+          @if (task.duration) {
+          <span class="meta-text text-gray-600">
+            {{ task.duration }} min
+          </span>
+          }
+          @if (task.repeat && task.repeat !== 'none') {
+          <span class="meta-text text-gray-600">
+            {{ task.repeat === 'daily' ? 'Daily' : 'Weekly' }}
+          </span>
+          }
+        </div>
+
+        <!-- Progress bar -->
+        @if (task.duration) {
+        <div class="progress-bar mt-2 h-1 bg-gray-200 rounded-full overflow-hidden">
+          <div class="h-full bg-green-500 transition-all duration-300"
+               [style.width.%]="(task.duration / 60) * 100"></div>
+        </div>
+        }
+      </div>
 
       <!-- Action buttons: Always visible on Mobile, hover-only on Desktop -->
       <div class="action-buttons flex gap-2 transition-opacity duration-200">
